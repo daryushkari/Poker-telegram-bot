@@ -1,5 +1,5 @@
-from telbot.hokm.games import *
-from telbot.hokm.players import *
+from telbot.Court_piece.games import *
+from telbot.Court_piece.players import *
 
 
 def main():
