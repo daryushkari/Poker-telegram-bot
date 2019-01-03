@@ -6,16 +6,16 @@ from telbot.Court_piece.players import Player
 
 class StandardGame:
     # a list contains cards
-    H_cards = [[i, 'H'] for i in range(2, 14)]
-    D_cards = [[i, 'D'] for i in range(2, 14)]
-    S_cards = [[i, 'S'] for i in range(2, 14)]
-    C_cards = [[i, 'C'] for i in range(2, 14)]
-    cards = [H_cards[:], D_cards[:], S_cards[:], C_cards[:]]
+    H_cards = [[i, 'H'] for i in range(2, 15)]
+    D_cards = [[i, 'D'] for i in range(2, 15)]
+    S_cards = [[i, 'S'] for i in range(2, 15)]
+    C_cards = [[i, 'C'] for i in range(2, 15)]
+    cards = H_cards[:] + D_cards[:] + S_cards[:] + C_cards[:]
     # players is a list of Player objects
 
     def __init__(self, player0: Player, player1: Player, player2: Player, player3: Player):
         self.players = [player0, player1, player2, player3]
-        self.king = None
+        self.king = random.randint(0,3)
         self.round = 0
         # players[0] and players[2] in first_team
         self.team_one_game_score = 0
@@ -24,7 +24,7 @@ class StandardGame:
 
     def shuffle_cards(self):
         shuffled_cards = self.cards[:]
-        random.shuffle(self.shuffle_cards)
+        random.shuffle(shuffled_cards)
         shuffled_cards = {'player0': shuffled_cards[0:13],
                           'player1': shuffled_cards[13:26],
                           'player2': shuffled_cards[26:39],
@@ -82,6 +82,7 @@ class StandardGame:
                 background = selected_card[1]
             played_cards.append([round_turn, selected_card])
             round_turn = self.go_turn(round_turn)
+
         return played_cards
 
     def play_round(self):
@@ -92,7 +93,7 @@ class StandardGame:
         trump = self.players[self.king].choose_trump()
         self.give_cards()
         background = None
-        while (team_one_round_score >= 7) or (team_tow_round_score >= 7):
+        while (team_one_round_score < 7) or (team_tow_round_score < 7):
             played_cards = self.play_trick(round_turn)
             winner_player = self.winner_player(trump, played_cards, background)
             winner_team = self.winner_team(winner_player)
@@ -101,7 +102,6 @@ class StandardGame:
                 team_one_round_score += 1
             else:
                 team_tow_round_score += 1
+            print(team_one_round_score, team_tow_round_score)
+        print(team_one_round_score, team_tow_round_score)
 
-
-# [1,[12, 'c']]
-# [12,'c']
