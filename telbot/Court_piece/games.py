@@ -93,7 +93,7 @@ class StandardGame:
         team_tow_round_score = 0
         round_turn = self.king
         trump = self.players[self.king].choose_trump()
-        while (team_one_round_score < 7) or (team_tow_round_score < 7):
+        while (team_one_round_score < 7) and (team_tow_round_score < 7):
             played_cards, background = self.play_trick(round_turn)
             winner_player = self.winner_player(trump, played_cards, background)
             winner_team = self.winner_team(winner_player)
@@ -103,6 +103,18 @@ class StandardGame:
             else:
                 team_tow_round_score += 1
             print(team_one_round_score, team_tow_round_score)
-        print(team_one_round_score, team_tow_round_score)
+        if team_one_round_score == 7:
+            round_winner_team = 1
+        else:
+            round_winner_team = 2
+        print(team_one_round_score, team_tow_round_score, round_winner_team)
+        return round_winner_team
 
-
+    def play_game(self):
+        while (self.team_one_game_score < 7) and (self.team_tow_game_score < 7):
+            winner_team = self.play_round()
+            if winner_team == 1:
+                self.team_one_game_score += 1
+            else:
+                self.team_tow_game_score += 1
+        print(self.team_one_game_score, self.team_tow_game_score)
