@@ -53,6 +53,29 @@ class StandardGame:
             return 0
         return turn + 1
 
+    @staticmethod
+    def winner_player(trump, played_cards, background):
+        best_cards = []
+        for i in played_cards:
+            if i[1][1] == trump:
+                best_cards.append(i)
+        if best_cards:
+            best_cards = sorted(best_cards, key=lambda x: (x[1][1]))
+            return best_cards[-1][0]
+        for i in played_cards:
+            if i[1][1] == background:
+                best_cards.append(i)
+        best_cards = sorted(best_cards, key=lambda x: (x[1][1]))
+        return best_cards[-1][0]
+
+    @staticmethod
+    def winner_team(winner_player):
+        if (winner_player == 0) or (winner_player == 2):
+            return 1
+        return 2
+
+    def play_trick(self):
+        pass
 
     def play_round(self):
         self.give_cards()
@@ -66,9 +89,17 @@ class StandardGame:
             played_cards = []
             for i in range(0, 4):
                 selected_card = self.players[round_turn].choose_card(played_cards, background)
-                background = selected_card[1]
+                if not played_cards:
+                    background = selected_card[1]
                 played_cards.append([round_turn, selected_card])
                 round_turn = self.go_turn(round_turn)
+            winner_player = self.winner_player(trump, played_cards, background)
+            winner_team = self.winner_team(winner_player)
+            if winner_team == 1:
+                team_one_round_score += 1
+            else:
+                team_tow_round_score += 1
 
 
-
+# [1,[12, 'c']]
+# [12,'c']
