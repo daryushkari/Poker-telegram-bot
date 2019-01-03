@@ -74,8 +74,15 @@ class StandardGame:
             return 1
         return 2
 
-    def play_trick(self):
-        pass
+    def play_trick(self, round_turn):
+        played_cards = []
+        for i in range(0, 4):
+            selected_card = self.players[round_turn].choose_card(played_cards, background)
+            if not played_cards:
+                background = selected_card[1]
+            played_cards.append([round_turn, selected_card])
+            round_turn = self.go_turn(round_turn)
+        return played_cards
 
     def play_round(self):
         self.give_cards()
@@ -86,15 +93,10 @@ class StandardGame:
         self.give_cards()
         background = None
         while (team_one_round_score >= 7) or (team_tow_round_score >= 7):
-            played_cards = []
-            for i in range(0, 4):
-                selected_card = self.players[round_turn].choose_card(played_cards, background)
-                if not played_cards:
-                    background = selected_card[1]
-                played_cards.append([round_turn, selected_card])
-                round_turn = self.go_turn(round_turn)
+            played_cards = self.play_trick(round_turn)
             winner_player = self.winner_player(trump, played_cards, background)
             winner_team = self.winner_team(winner_player)
+            round_turn = winner_player
             if winner_team == 1:
                 team_one_round_score += 1
             else:
