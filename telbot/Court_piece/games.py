@@ -47,6 +47,12 @@ class StandardGame:
             else:
                 self.king += 1
 
+    @staticmethod
+    def go_turn(turn):
+        if turn == 3:
+            return 0
+        return turn + 1
+
 
     def play_round(self):
         self.give_cards()
@@ -54,6 +60,15 @@ class StandardGame:
         team_tow_round_score = 0
         round_turn = self.king
         trump = self.players[self.king].choose_trump()
-        while (team_one_round_score >= 7 ) or (team_tow_round_score >= 7):
+        self.give_cards()
+        background = None
+        while (team_one_round_score >= 7) or (team_tow_round_score >= 7):
             played_cards = []
+            for i in range(0, 4):
+                selected_card = self.players[round_turn].choose_card(played_cards, background)
+                background = selected_card[1]
+                played_cards.append([round_turn, selected_card])
+                round_turn = self.go_turn(round_turn)
+
+
 

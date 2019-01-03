@@ -23,6 +23,8 @@ class Player:
         return trump
 
     def validate_card(self, selected_card, background):
+        if not background:
+            return True
         if self.cards[selected_card][1] == background:
             return True
         x = []
