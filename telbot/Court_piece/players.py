@@ -2,7 +2,8 @@ import random
 
 
 class Player:
-    def __init__(self, player_id):
+    def __init__(self, player_id, player_name):
+        self.player_name = player_name
         self.id = player_id
         self.cards = None
 
@@ -35,5 +36,8 @@ class Player:
         del self.cards[selected_card]
         return return_card
 
-    def send_information(self,enemy_score, your_score, enemy_round_score, your_round_score):
-        print(enemy_score, " ", your_score, " ", enemy_round_score, " ", your_round_score)
+    def get_information(self, enemy_score, your_score, enemy_round_score, your_round_score, king):
+        print(enemy_score, " ", your_score, " ", enemy_round_score, " ", your_round_score, " ", king, " ", self.id)
+
+    def get_played_cards(self, played_cards):
+        print(played_cards, self.id)
