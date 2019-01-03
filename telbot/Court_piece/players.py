@@ -25,3 +25,16 @@ class Player:
             trump = input()
         return trump
 
+    def choose_card(self, enemy_score, your_score, enemy_round_score, your_round_score, played_cards):
+        print("Your turn")
+        print(enemy_score, " ", your_score, " ", enemy_round_score, " ", your_round_score, played_cards)
+        print(self.cards)
+        selected_card = -10
+        while (selected_card < 0) or (selected_card >= len(self.cards)):
+            try:
+                selected_card = int(input())
+            except ValueError:
+                print("invalid input")
+        return_card = self.cards[selected_card]
+        del self.cards[selected_card]
+        return return_card
