@@ -5,10 +5,6 @@ class Player:
     def __init__(self, player_id):
         self.id = player_id
         self.cards = None
-        self.game_score = 0
-        self.enemy_game_score = 0
-        self.round_score = 0
-        self.enemy_round_score = 0
 
     def get_cards(self, cards):
         self.cards = sorted(cards, key=lambda x: (x[0]))
@@ -25,9 +21,9 @@ class Player:
             trump = input()
         return trump
 
-    def choose_card(self, enemy_score, your_score, enemy_round_score, your_round_score, played_cards):
+    def choose_card(self, played_cards):
         print("Your turn")
-        print(enemy_score, " ", your_score, " ", enemy_round_score, " ", your_round_score, played_cards)
+        print(played_cards)
         print(self.cards)
         selected_card = -10
         while (selected_card < 0) or (selected_card >= len(self.cards)):
@@ -38,3 +34,6 @@ class Player:
         return_card = self.cards[selected_card]
         del self.cards[selected_card]
         return return_card
+
+    def send_information(self,enemy_score, your_score, enemy_round_score, your_round_score):
+        print(enemy_score, " ", your_score, " ", enemy_round_score, " ", your_round_score)
