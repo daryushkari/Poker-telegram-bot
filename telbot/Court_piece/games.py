@@ -15,7 +15,7 @@ class StandardGame:
 
     def __init__(self, player0: Player, player1: Player, player2: Player, player3: Player):
         self.players = [player0, player1, player2, player3]
-        self.king = random.randint(0,3)
+        self.king = random.randint(0, 3)
         self.round = 0
         # players[0] and players[2] in first_team
         self.team_one_game_score = 0
@@ -55,17 +55,18 @@ class StandardGame:
 
     @staticmethod
     def winner_player(trump, played_cards, background):
+        print(played_cards)
         best_cards = []
         for i in played_cards:
             if i[1][1] == trump:
                 best_cards.append(i)
         if best_cards:
-            best_cards = sorted(best_cards, key=lambda x: (x[1][1]))
+            best_cards = sorted(best_cards, key=lambda x: (x[1][0]))
             return best_cards[-1][0]
         for i in played_cards:
             if i[1][1] == background:
                 best_cards.append(i)
-        best_cards = sorted(best_cards, key=lambda x: (x[1][1]))
+        best_cards = sorted(best_cards, key=lambda x: (x[1][0]))
         return best_cards[-1][0]
 
     @staticmethod
@@ -76,6 +77,7 @@ class StandardGame:
 
     def play_trick(self, round_turn):
         played_cards = []
+        background = None
         for i in range(0, 4):
             selected_card = self.players[round_turn].choose_card(played_cards, background)
             if not played_cards:
@@ -83,7 +85,7 @@ class StandardGame:
             played_cards.append([round_turn, selected_card])
             round_turn = self.go_turn(round_turn)
 
-        return played_cards
+        return played_cards, background
 
     def play_round(self):
         self.give_cards()
@@ -91,10 +93,8 @@ class StandardGame:
         team_tow_round_score = 0
         round_turn = self.king
         trump = self.players[self.king].choose_trump()
-        self.give_cards()
-        background = None
         while (team_one_round_score < 7) or (team_tow_round_score < 7):
-            played_cards = self.play_trick(round_turn)
+            played_cards, background = self.play_trick(round_turn)
             winner_player = self.winner_player(trump, played_cards, background)
             winner_team = self.winner_team(winner_player)
             round_turn = winner_player
@@ -104,4 +104,5 @@ class StandardGame:
                 team_tow_round_score += 1
             print(team_one_round_score, team_tow_round_score)
         print(team_one_round_score, team_tow_round_score)
+
 

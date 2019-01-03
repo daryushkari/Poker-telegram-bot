@@ -10,6 +10,7 @@ class Player:
     def get_cards(self, cards):
         self.cards = sorted(cards, key=lambda x: (x[0]))
         self.cards = sorted(self.cards, key=lambda x: (x[1]))
+        print(self.cards)
 
     def choose_trump(self):
         random_cards = self.cards[:]
@@ -18,7 +19,7 @@ class Player:
         print(random_cards[0:5])
         trump = None
         while trump not in ['S', 'H', 'D', 'C']:
-            print("please choose S,H,D or C for trump")
+            print("please choose S,H,D or C for trump", self.id)
             trump = input()
         return trump
 
@@ -36,7 +37,7 @@ class Player:
 
     def choose_card(self, played_cards, background):
         # Todo : should call telegram APIs
-        print("Your turn")
+        print("Your turn", self.id)
         print(played_cards, " ", background)
         print(self.cards)
         selected_card = -10
