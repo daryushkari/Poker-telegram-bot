@@ -14,3 +14,14 @@ class Player:
         self.cards = sorted(cards, key=lambda x: (x[0]))
         self.cards = sorted(self.cards, key=lambda x: (x[1]))
 
+    def choose_trump(self):
+        random_cards = self.cards[:]
+        random.shuffle(random_cards)
+        # Todo : should call telegram APIs
+        print(random_cards[0:5])
+        trump = None
+        while trump not in ['S', 'H', 'D', 'C']:
+            print("please choose S,H,D or C for trump")
+            trump = input()
+        return trump
+
