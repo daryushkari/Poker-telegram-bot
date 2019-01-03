@@ -22,9 +22,20 @@ class Player:
             trump = input()
         return trump
 
-    def choose_card(self, played_cards):
+    def validate_card(self, selected_card, background):
+        if self.cards[selected_card][1] == background:
+            return True
+        x = []
+        for i in self.cards:
+            x.append(i[1])
+        if self.cards[selected_card][1] in x:
+            return False
+        return True
+
+    def choose_card(self, played_cards, background):
+        # Todo : should call telegram APIs
         print("Your turn")
-        print(played_cards)
+        print(played_cards, " ", background)
         print(self.cards)
         selected_card = -10
         while (selected_card < 0) or (selected_card >= len(self.cards)):
@@ -32,6 +43,9 @@ class Player:
                 selected_card = int(input())
             except ValueError:
                 print("invalid input")
+            if not self.validate_card(selected_card, background):
+                selected_card = -10
+                print("invalid card")
         return_card = self.cards[selected_card]
         del self.cards[selected_card]
         return return_card

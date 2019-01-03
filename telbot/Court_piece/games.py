@@ -47,9 +47,13 @@ class StandardGame:
             else:
                 self.king += 1
 
+
     def play_round(self):
         self.give_cards()
         team_one_round_score = 0
         team_tow_round_score = 0
+        round_turn = self.king
+        trump = self.players[self.king].choose_trump()
         while (team_one_round_score >= 7 ) or (team_tow_round_score >= 7):
+            played_cards = []
 
