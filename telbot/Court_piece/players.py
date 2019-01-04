@@ -31,7 +31,7 @@ class Player:
         x = []
         for i in self.cards:
             x.append(i[1])
-        if self.cards[selected_card][1] in x:
+        if background in x:
             return False
         return True
 

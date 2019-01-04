@@ -10,5 +10,6 @@ def main():
     game = StandardGame(p0, p1, p2, p3)
     game.play_round()
 
+
 if __name__ == "__main__":
     main()
