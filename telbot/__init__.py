@@ -8,7 +8,7 @@ def main():
     p2 = Player(2, 2)
     p3 = Player(3, 3)
     game = StandardGame(p0, p1, p2, p3)
-    game.play_round()
+    game.play_game()
 
 
 if __name__ == "__main__":

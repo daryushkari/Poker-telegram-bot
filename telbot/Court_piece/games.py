@@ -39,13 +39,10 @@ class StandardGame:
         self.players[3].get_cards(shuffled_cards['player3'])
 
     def choose_king(self):
-        if self.round == 0:
-            self.king = random.randint(0,3)
+        if self.king == 3:
+            self.king = 0
         else:
-            if self.king == 3:
-                self.king = 0
-            else:
-                self.king += 1
+            self.king += 1
 
     @staticmethod
     def go_turn(turn):
@@ -115,6 +112,11 @@ class StandardGame:
             winner_team = self.play_round()
             if winner_team == 1:
                 self.team_one_game_score += 1
+                if (self.king == 1) or (self.king == 3):
+                    self.choose_king()
             else:
                 self.team_tow_game_score += 1
+                if (self.king == 0) or (self.king == 2):
+                    self.choose_king()
+        print(self.king)
         print(self.team_one_game_score, self.team_tow_game_score)
